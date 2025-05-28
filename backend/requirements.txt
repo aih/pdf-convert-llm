@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard] # Includes uvicorn, httptools, websockets, python-multipart
+pydantic
+PyPDF2
+anthropic
+google-generativeai
+python-multipart # Explicitly listed though uvicorn[standard] should get it

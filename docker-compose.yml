@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  pdf-converter-app:
+    build:
+      context: . # Dockerfile is in the current directory (your-project-root)
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    #volumes:
+      # Optional: For development, you can mount backend code for live reload
+      # But for production, it's better to rely on the image content.
+      # - ./backend:/app/backend
+      # Remove the above volume mount for a production-like build.
+      # The frontend is built into the image, so no volume mount for it.
+      # If you need to persist job data or temp files outside the container:
+      # - pdf_converter_temp:/app/backend/pdf_converter_jobs_on_host # Example
+    environment:
+      # Override or set API keys here. Best practice is to use .env file with Docker Compose.
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    # For .env file support, create a .env file in your-project-root/
+    # env_file:
+    #   - .env
+    restart: unless-stopped
+
+# Optional: Define a named volume if you want to persist data
+# volumes:
+#   pdf_converter_temp:

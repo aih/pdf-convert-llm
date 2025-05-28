@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+backend/__pycache__/
+backend/temp/
+
+# Environment variables
+.env
+backend/.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+*.pyc
+__pycache__/
+.pytest_cache/
+venv/
+env/
