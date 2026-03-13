@@ -648,6 +648,7 @@
 /* --- Global Resets & Base Styles --- */
 html {
 	scroll-behavior: smooth;
+	scroll-padding-top: 80px; /* Offset the mobile sticky header when navigating */
 }
 
 body {
