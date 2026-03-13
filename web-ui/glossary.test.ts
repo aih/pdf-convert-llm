@@ -1,23 +1,22 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
+// vi.mock calls must be at module scope so they are hoisted before any imports
+vi.mock('algoliasearch/lite', () => ({
+	default: vi.fn(() => ({
+		search: vi.fn(),
+	})),
+	liteClient: vi.fn(() => ({
+		search: vi.fn(),
+	})),
+}));
+
+vi.mock('@algolia/autocomplete-js', () => ({
+	autocomplete: vi.fn(),
+	getAlgoliaResults: vi.fn(),
+}));
+
 describe('Glossary Tooltip Behavior', () => {
 	beforeEach(() => {
-		// Mock Algolia to prevent "appId is missing" error
-		vi.mock('algoliasearch/lite', () => ({
-			default: vi.fn(() => ({
-				search: vi.fn(),
-			})),
-			liteClient: vi.fn(() => ({
-				search: vi.fn(),
-			})),
-		}));
-
-		// Mock autocomplete to prevent initialization errors
-		vi.mock('@algolia/autocomplete-js', () => ({
-			autocomplete: vi.fn(),
-			getAlgoliaResults: vi.fn(),
-		}));
-
 		vi.resetModules();
 		document.body.innerHTML = `
             <div id="chapter-content">
