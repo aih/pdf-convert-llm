@@ -250,4 +250,3 @@ npm run dev
 ```
 
 Navigate to the provided localhost URL (e.g., `http://localhost:5173`) to view your newly generated document website!
-```

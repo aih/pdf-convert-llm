@@ -326,7 +326,7 @@
                     </ul>
                 </div>
                 
-                <button class="choice-button" onclick="goToStep(1)">Start Registration Process</button>
+                <button class="choice-button" data-goto="1">Start Registration Process</button>
             </div>
             
             <!-- Step 1: Work Type -->
@@ -334,15 +334,15 @@
                 <h3>What type of work are you registering?</h3>
                 <p>Select the category that best describes your creative work:</p>
                 
-                <button class="choice-button" onclick="setWorkType('literary'); goToStep(2)">Literary Work (books, articles, computer programs, etc.)</button>
-                <button class="choice-button" onclick="setWorkType('musical'); goToStep(2)">Musical Work or Sound Recording</button>
-                <button class="choice-button" onclick="setWorkType('dramatic'); goToStep(2)">Dramatic Work (plays, screenplays, etc.)</button>
-                <button class="choice-button" onclick="setWorkType('visual'); goToStep(2)">Visual Arts (paintings, photographs, sculptures, graphics)</button>
-                <button class="choice-button" onclick="setWorkType('motion'); goToStep(2)">Motion Picture or Audiovisual Work</button>
-                <button class="choice-button" onclick="setWorkType('choreographic'); goToStep(2)">Choreographic or Pantomime Work</button>
-                <button class="choice-button" onclick="setWorkType('architectural'); goToStep(2)">Architectural Work</button>
+                <button class="choice-button" data-work-type="literary" data-goto="2">Literary Work (books, articles, computer programs, etc.)</button>
+                <button class="choice-button" data-work-type="musical" data-goto="2">Musical Work or Sound Recording</button>
+                <button class="choice-button" data-work-type="dramatic" data-goto="2">Dramatic Work (plays, screenplays, etc.)</button>
+                <button class="choice-button" data-work-type="visual" data-goto="2">Visual Arts (paintings, photographs, sculptures, graphics)</button>
+                <button class="choice-button" data-work-type="motion" data-goto="2">Motion Picture or Audiovisual Work</button>
+                <button class="choice-button" data-work-type="choreographic" data-goto="2">Choreographic or Pantomime Work</button>
+                <button class="choice-button" data-work-type="architectural" data-goto="2">Architectural Work</button>
                 
-                <button class="choice-button back-button" onclick="goToStep(0)">← Back</button>
+                <button class="choice-button back-button" data-goto="0">← Back</button>
             </div>
             
             <!-- Step 2: Publication Status -->
@@ -354,11 +354,11 @@
                     <strong>Important:</strong> Public performance or display does not necessarily constitute publication. Online posting may or may not be considered publication depending on the circumstances.
                 </div>
                 
-                <button class="choice-button" onclick="setPublished(true); goToStep(3)">Yes, my work has been published</button>
-                <button class="choice-button" onclick="setPublished(false); goToStep(3)">No, my work is unpublished</button>
-                <button class="choice-button" onclick="goToStep(10)">I'm not sure - Help me determine</button>
+                <button class="choice-button" data-published="true" data-goto="3">Yes, my work has been published</button>
+                <button class="choice-button" data-published="false" data-goto="3">No, my work is unpublished</button>
+                <button class="choice-button" data-goto="10">I'm not sure - Help me determine</button>
                 
-                <button class="choice-button back-button" onclick="goToStep(1)">← Back</button>
+                <button class="choice-button back-button" data-goto="1">← Back</button>
             </div>
             
             <!-- Step 3: Single or Multiple Works -->
@@ -366,10 +366,10 @@
                 <h3>Are you registering a single work or multiple works?</h3>
                 <p>The Copyright Office offers group registration options for certain types of works, which can save time and money when registering multiple related works.</p>
                 
-                <button class="choice-button" onclick="setSingle(true); goToStep(4)">Single work</button>
-                <button class="choice-button" onclick="setSingle(false); goToStep(5)">Multiple related works (group registration)</button>
+                <button class="choice-button" data-single="true" data-goto="4">Single work</button>
+                <button class="choice-button" data-single="false" data-goto="5">Multiple related works (group registration)</button>
                 
-                <button class="choice-button back-button" onclick="goToStep(2)">← Back</button>
+                <button class="choice-button back-button" data-goto="2">← Back</button>
             </div>
             
             <!-- Step 4: Single Work Registration -->
@@ -398,10 +398,10 @@
                 <a href="https://www.copyright.gov/registration/" class="copyright-gov-link" target="_blank">Go to Copyright.gov Registration →</a>
                 <a href="https://eco.copyright.gov/" class="copyright-gov-link" target="_blank">Access eCO System (Electronic Copyright Office) →</a>
                 
-                <button class="choice-button" onclick="goToStep(7)">Learn about required deposits →</button>
-                <button class="choice-button" onclick="goToStep(8)">View filing fees →</button>
+                <button class="choice-button" data-goto="7">Learn about required deposits →</button>
+                <button class="choice-button" data-goto="8">View filing fees →</button>
                 
-                <button class="choice-button back-button" onclick="goToStep(3)">← Back</button>
+                <button class="choice-button back-button" data-goto="3">← Back</button>
             </div>
             
             <!-- Step 5: Group Registration Options -->
@@ -409,15 +409,15 @@
                 <h3>Group Registration Options</h3>
                 <p>Select the type of group registration that applies to your works:</p>
                 
-                <button class="choice-button" onclick="goToStep(6, 'GRCP')">Published Contributions to Periodicals (GRCP)</button>
-                <button class="choice-button" onclick="goToStep(6, 'GPH')">Published Photographs (GPH)</button>
-                <button class="choice-button" onclick="goToStep(6, 'GRTW')">Short Online Literary Works (GRTW)</button>
-                <button class="choice-button" onclick="goToStep(6, 'GRVW')">Unpublished Visual Works (GRVW)</button>
-                <button class="choice-button" onclick="goToStep(6, 'GRUW')">Unpublished Works (GRUW)</button>
-                <button class="choice-button" onclick="goToStep(6, 'GRNP')">Newspapers (GRNP)</button>
-                <button class="choice-button" onclick="goToStep(6, 'GRNL')">Newsletters (GRNL)</button>
+                <button class="choice-button" data-group-type="GRCP" data-goto="6">Published Contributions to Periodicals (GRCP)</button>
+                <button class="choice-button" data-group-type="GPH" data-goto="6">Published Photographs (GPH)</button>
+                <button class="choice-button" data-group-type="GRTW" data-goto="6">Short Online Literary Works (GRTW)</button>
+                <button class="choice-button" data-group-type="GRVW" data-goto="6">Unpublished Visual Works (GRVW)</button>
+                <button class="choice-button" data-group-type="GRUW" data-goto="6">Unpublished Works (GRUW)</button>
+                <button class="choice-button" data-group-type="GRNP" data-goto="6">Newspapers (GRNP)</button>
+                <button class="choice-button" data-group-type="GRNL" data-goto="6">Newsletters (GRNL)</button>
                 
-                <button class="choice-button back-button" onclick="goToStep(3)">← Back</button>
+                <button class="choice-button back-button" data-goto="3">← Back</button>
             </div>
             
             <!-- Step 6: Group Registration Details -->
@@ -428,7 +428,7 @@
                 <a href="https://www.copyright.gov/registration/group-registration/" class="copyright-gov-link" target="_blank">Learn More About Group Registration →</a>
                 <a href="https://eco.copyright.gov/" class="copyright-gov-link" target="_blank">Start Group Registration in eCO →</a>
                 
-                <button class="choice-button back-button" onclick="goToStep(5)">← Back</button>
+                <button class="choice-button back-button" data-goto="5">← Back</button>
             </div>
             
             <!-- Step 7: Deposit Requirements -->
@@ -455,7 +455,7 @@
                 <a href="https://www.copyright.gov/circs/circ01.pdf" class="copyright-gov-link" target="_blank">View Detailed Deposit Requirements (Circular 1) →</a>
                 <a href="https://www.copyright.gov/help/faq-deposit.html" class="copyright-gov-link" target="_blank">Deposit FAQ →</a>
                 
-                <button class="choice-button back-button" onclick="goToStep(4)">← Back to Registration</button>
+                <button class="choice-button back-button" data-goto="4">← Back to Registration</button>
             </div>
             
             <!-- Step 8: Filing Fees -->
@@ -483,7 +483,7 @@
                 
                 <a href="https://www.copyright.gov/about/fees.html" class="copyright-gov-link" target="_blank">View Current Fee Schedule →</a>
                 
-                <button class="choice-button back-button" onclick="goToStep(4)">← Back to Registration</button>
+                <button class="choice-button back-button" data-goto="4">← Back to Registration</button>
             </div>
             
             <!-- Step 9: Special Registrations -->
@@ -507,7 +507,7 @@
                     <br><a href="https://www.copyright.gov/renewals/" target="_blank">Learn more about renewal →</a>
                 </div>
                 
-                <button class="choice-button back-button" onclick="goToStep(0)">← Start Over</button>
+                <button class="choice-button back-button" data-goto="0">← Start Over</button>
             </div>
             
             <!-- Step 10: Publication Help -->
@@ -536,9 +536,9 @@
                     <strong>Still not sure?</strong> When in doubt, it's often safer to treat your work as unpublished for registration purposes. You can also consult with the Copyright Office or a legal professional.
                 </div>
                 
-                <button class="choice-button" onclick="setPublished(true); goToStep(3)">My work is published</button>
-                <button class="choice-button" onclick="setPublished(false); goToStep(3)">My work is unpublished</button>
-                <button class="choice-button back-button" onclick="goToStep(2)">← Back</button>
+                <button class="choice-button" data-published="true" data-goto="3">My work is published</button>
+                <button class="choice-button" data-published="false" data-goto="3">My work is unpublished</button>
+                <button class="choice-button back-button" data-goto="2">← Back</button>
             </div>
         </div>
 
@@ -923,6 +923,23 @@ Response:
                 document.getElementById('group-details').innerHTML = data.description;
             }
         }
+
+        // Delegated event listener replacing all inline onclick handlers
+        document.addEventListener('click', function(event) {
+            const btn = event.target.closest('button[data-goto]');
+            if (!btn) return;
+
+            const workType = btn.getAttribute('data-work-type');
+            const published = btn.getAttribute('data-published');
+            const single = btn.getAttribute('data-single');
+            const groupType = btn.getAttribute('data-group-type');
+            const step = parseInt(btn.getAttribute('data-goto'), 10);
+
+            if (workType) setWorkType(workType);
+            if (published !== null) setPublished(published === 'true');
+            if (single !== null) setSingle(single === 'true');
+            goToStep(step, groupType || null);
+        });
     </script>
 </body>
 </html>

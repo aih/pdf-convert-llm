@@ -514,6 +514,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         const subTitleEl = document.querySelector('.logo-sub');
         if (subTitleEl) subTitleEl.textContent = config.headerTitleSub;
     }
+    if (config.homeLinkTitle) {
+        const homeLinkEl = document.getElementById('home-link');
+        if (homeLinkEl) homeLinkEl.setAttribute('title', config.homeLinkTitle);
+    }
+    if (config.officialSourceUrl) {
+        const officialLinkEl = document.getElementById('official-source-link');
+        if (officialLinkEl) {
+            officialLinkEl.setAttribute('href', config.officialSourceUrl);
+            if (config.officialSourceText) officialLinkEl.textContent = config.officialSourceText;
+        }
+    }
     if (config.showAdHocBanner === false) {
         const banner = document.getElementById('disclaimer-banner');
         if (banner) banner.style.display = 'none';
