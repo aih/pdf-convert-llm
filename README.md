@@ -1,4 +1,3 @@
-```markdown
 # PDF to XML Converter Application
 
 This application allows users to upload PDF files, specify processing instructions (or use a default prompt), and convert the PDFs into structured XML format using a Large Language Model (LLM) via a backend API.
