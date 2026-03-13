@@ -85,9 +85,9 @@ for filename in pdf_files:
     reader = PdfReader(pdf_path)
     total_pages = len(reader.pages)
     
-    if total_pages <= 1:
-        # Too small to split sensibly, try it whole
-        print("PDF has only 1 page, processing whole...")
+    CHUNK_SIZE = 2
+    if total_pages <= CHUNK_SIZE:
+        print(f"PDF has {total_pages} pages, processing whole...")
         result = convert_pdf_part(pdf_path, filename)
         if result:
             with open(out_file_path, 'w', encoding='utf-8') as f:
@@ -96,49 +96,50 @@ for filename in pdf_files:
         time.sleep(35)
         continue
         
-    midpoint = total_pages // 2
-    
-    p1_path = os.path.join(out_dir, "temp_part1.pdf")
-    p2_path = os.path.join(out_dir, "temp_part2.pdf")
-    
-    writer1 = PdfWriter()
-    for i in range(0, midpoint):
-        writer1.add_page(reader.pages[i])
-    with open(p1_path, "wb") as fOut:
-        writer1.write(fOut)
+    chunks = []
+    for i in range(0, total_pages, CHUNK_SIZE):
+        writer = PdfWriter()
+        for j in range(i, min(i + CHUNK_SIZE, total_pages)):
+            writer.add_page(reader.pages[j])
         
-    writer2 = PdfWriter()
-    for i in range(midpoint, total_pages):
-        writer2.add_page(reader.pages[i])
-    with open(p2_path, "wb") as fOut:
-        writer2.write(fOut)
+        part_num = (i // CHUNK_SIZE) + 1
+        part_path = os.path.join(out_dir, f"temp_part{part_num}.pdf")
+        with open(part_path, "wb") as fOut:
+            writer.write(fOut)
+        chunks.append({
+            'path': part_path,
+            'name': f"{filename}_part{part_num}"
+        })
         
-    print(f"Split {filename} into Part 1 (pages 1-{midpoint}) and Part 2 (pages {midpoint+1}-{total_pages})")
+    print(f"Split {filename} into {len(chunks)} chunks of max {CHUNK_SIZE} pages.")
     
-    part1_xhtml = convert_pdf_part(p1_path, f"{filename}_part1")
-    if not part1_xhtml:
-        print(f"Failed to generate part 1 for {filename}")
-        continue
+    combined_xhtml = []
+    success = True
+    for chunk in chunks:
+        part_xhtml = convert_pdf_part(chunk['path'], chunk['name'])
+        if not part_xhtml:
+            print(f"Failed to generate {chunk['name']}")
+            success = False
+            break
+            
+        combined_xhtml.append(extract_inner_xhtml(part_xhtml))
         
-    print("Waiting 35 seconds to avoid rate limits between parts...")
-    time.sleep(35)
-    
-    part2_xhtml = convert_pdf_part(p2_path, f"{filename}_part2")
-    if not part2_xhtml:
-        print(f"Failed to generate part 2 for {filename}")
-        continue
+        print("Waiting 35 seconds to avoid rate limits between parts...")
+        time.sleep(35)
         
-    print(f"Combining XHTML for {filename}...")
-    combined = extract_inner_xhtml(part1_xhtml) + "\n\n<!-- PAGE SPLIT -->\n\n" + extract_inner_xhtml(part2_xhtml)
-    
-    with open(out_file_path, 'w', encoding='utf-8') as f:
-        f.write(combined)
+    if success and len(combined_xhtml) == len(chunks):
+        print(f"Combining XHTML for {filename}...")
+        combined = "\n\n<!-- PAGE SPLIT -->\n\n".join(combined_xhtml)
         
-    print(f"Saved recombined {out_filename}")
+        with open(out_file_path, 'w', encoding='utf-8') as f:
+            f.write(combined)
+            
+        print(f"Saved recombined {out_filename}")
     
     # Cleanup temp files
-    os.remove(p1_path)
-    os.remove(p2_path)
+    for chunk in chunks:
+        if os.path.exists(chunk['path']):
+            os.remove(chunk['path'])
     
     print("Waiting 35 seconds to avoid rate limiting before next file...")
     time.sleep(35)
