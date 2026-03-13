@@ -1,0 +1,20 @@
+{
+	"rewrites": [
+	 {  "source": "/glossary.html", 
+	    "destination": "/index.html" },
+	 {  "source": "/introduction.html", 
+	    "destination": "/index.html" },
+	 {  "source": "/revision-history.html", 
+	    "destination": "/index.html" },
+	 {  "source": "/experimental-registration-guide.html", 
+	    "destination": "/index.html" },
+	 {
+		"source": "/:path*.html",
+		"destination": "/index.html"
+	      },
+	  {
+	    "source": "/([^/.]+)$",       
+	    "destination": "/index.html"     
+	  }
+	]
+      }

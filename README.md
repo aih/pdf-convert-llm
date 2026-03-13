@@ -210,4 +210,44 @@ export GOOGLE_API_KEY="your_google_gemini_api_key"
 *   **Static Files Not Found (404s for CSS/JS):**
     *   Ensure the frontend build (e.g., `frontend/dist/`) was correctly copied to `backend/static_frontend/`.
     *   Verify the `STATIC_FILES_DIR` path and the `app.mount(...)` path in `pdf-xml-backend-api.py` match the structure of your `static_frontend` directory (e.g., `assets` subfolder for Vite, `static` for CRA).
+
+## Option C: Self-Serve Web UI Generation
+
+This repository also includes a fully functional, self-serve web viewer (`web-ui`) that you can populate using your PDFs. 
+
+### 1. Requirements
+
+Ensure the FastAPI backend is running locally on `http://localhost:8000` (see Option B, step 4). 
+
+### 2. Run the Conversion Script
+
+Use the provided `convert_to_web.py` script to automatically convert a directory of PDFs and build the configuration for the UI:
+
+```bash
+# Ensure you are in the python virtual environment where requests is installed
+python convert_to_web.py \
+  --pdf-dir path/to/your/pdfs \
+  --title "My Custom Web Document" \
+  --subtitle "Version 1.0" \
+  --hide-banner
+```
+
+The script will:
+- Process the PDFs.
+- Save the resulting XHTML files to `web-ui/public/`.
+- Generate `web-ui/public/config.json` and `web-ui/public/chapters.json`.
+
+*(If your PDFs are already processed and in `web-ui/public`, you can just run it with `--skip-conversion` to quickly build the JSON config files).*
+
+### 3. Run the Web UI
+
+Navigate to the `web-ui` directory, install its dependencies, and start the development server:
+
+```bash
+cd web-ui
+npm install
+npm run dev
+```
+
+Navigate to the provided localhost URL (e.g., `http://localhost:5173`) to view your newly generated document website!
 ```
